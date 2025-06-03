@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-Time Employee Table</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container mt-3">
+    <h3 class="mb-3">Employee Table (Real-Time)</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Sno</th>
+          <th>Employee CNIC</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody id="tbody1"></tbody>
+    </table>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDdksCx9g0PCgJp0Ds1H1NxT8QiI0P2teA",
+      authDomain: "fbv10test.firebaseapp.com",
+      databaseURL: "https://fbv10test-default-rtdb.firebaseio.com",
+      projectId: "fbv10test",
+      storageBucket: "fbv10test.appspot.com",
+      messagingSenderId: "691906358085",
+      appId: "1:691906358085:web:cda39e5687504b1ba4ec2c"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth();
+
+    let sno = 0;
+    const tbody1 = document.getElementById("tbody1");
+
+    const AddSingleRecord = (cnic, firstName, lastName, Department) => {
+      const trow = document.createElement("tr");
+      const td1 = document.createElement("td");
+      const td2 = document.createElement("td");
+      const td3 = document.createElement("td");
+      const td4 = document.createElement("td");
+      const td5 = document.createElement("td");
+
+      td1.textContent = ++sno;
+      td2.textContent = cnic;
+      td3.textContent = firstName;
+      td4.textContent = lastName;
+      td5.textContent = Department;
+
+      trow.append(td1, td2, td3, td4, td5);
+      tbody1.appendChild(trow);
+    };
+
+    const selectAllDataRealtime = () => {
+      const dbRef = ref(db, "EmployeeSet");
+      onValue(dbRef, (snapshot) => {
+        sno = 0;
+        tbody1.innerHTML = "";
+        if (snapshot.exists()) {
+          snapshot.forEach((employee) => {
+            const empData = employee.val();
+            AddSingleRecord(employee.key, empData.firstName, empData.lastName, empData.Department);
+          });
+        }
+      }, (error) => {
+        console.error("Firebase read failed: ", error);
+      });
+    };
+
+    // Check if user is authenticated before accessing data
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        selectAllDataRealtime();
+      } else {
+        alert("You must be logged in to view this page.");
+        window.location.href = "login.html"; // Redirect to login
+      }
+    });
+  </script>
+</body>
+</html>
