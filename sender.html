@@ -9,18 +9,26 @@
   <h2>Welcome - Employee Form</h2>
   <button id="LogoutBtn">Logout</button>
   <br><br>
-  <label>First Name</label>
+  <label>Full Name</label>
   <input type="text" id="FnameInp">
   <br><br>
-  <label>Last Name</label>
-  <input type="text" id="LnameInp">
-  <br><br>
   <label>Department</label>
-  <select id="DeptInp">
+  <select id="LnameInp">
     <option value="development">Development</option>
     <option value="testing">Testing</option>
     <option value="management">Management</option>
     <option value="administration">Administration</option>
+  </select>
+  <br><br>
+  <label>Current Location</label>
+  <select id="DeptInp">
+    <option value="DCSC OFFICE">DCSC OFFICE</option>
+    <option value="DCG OFFICE">DCG OFFICE</option>
+    <option value="STORE">STORE</option>
+    <option value="TOWN">TOWN</option>
+    <option value="PORT">PORT</option>
+    <option value="UP-COUNTRY">UP-COUNTRY</option>
+    <option value="HOME">HOME</option>
   </select>
   <br><br>
   <label>CNIC</label>
@@ -29,7 +37,8 @@
   <button id="AddBtn">ADD</button>
   <button id="RetBtn">RETRIEVE</button>
   <button id="UpBtn">UPDATE</button>
-  <button id="DelBtn">DELETE</button>
+  <button id="DelBtn">DELETE</button> <br> <br>
+    <button id="tblBTN">seeOutputTable</button>
 
   <script type="module">
     import { auth, db } from './firebase-config.js';
@@ -115,6 +124,16 @@
     RetBtn.addEventListener("click", RetData);
     UpBtn.addEventListener("click", UpdateData);
     DelBtn.addEventListener("click", DeleteData);
+    //
+    tblBTN.onclick=()=>{
+      var passcode = prompt("Enter passcode to access this page:");
+      if (passcode !== "0014") {
+        alert("Incorrect passcode.");
+       // window.location.href = "about:blank"; // Or a different page
+      // window.close();
+     // window.location.href="login.html";
+      }else{window.location.href="outputTable.html";}
+    }
   </script>
 </body>
 </html>
