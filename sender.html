@@ -9,14 +9,22 @@
   <style>
     [mgn]{margin-right: 5px;}
     h2{margin-top: 0%;}
-    #relodImg{width: 50PX; height: 50PX;position: absolute;right: 1em;top: 1em;}
-    #relodImg:active{transform: rotate(35deg) scale(1.2);}
-    #img1{width:50px;height:50px; border-radius: 50%; text-align: center;margin-bottom: 0%; }
-#outConta{margin:0 auto ;background-color: rgb(27, 221, 221);position: relative;
+    #relodImg{cursor: pointer; width: 30PX; height: 30PX;position: absolute;right: 1em;top: 1em;}
+    #relodImg:hover{transform:scale(1.1)} 
+    #relodImg:active{transform: rotate(35deg) scale(1.2);background-color: n;}
+    
+    #img1{animation:spin 8s linear infinite; width:50px;height:50px; border-radius: 50%; text-align: center;margin-bottom: 0%; }
+@keyframes spin{
+      from{transform:rotateY(0deg)}
+      to{transform:rotateY(360deg)}
+    }
+    #outConta{margin:0 auto ;background-color: rgb(27, 221, 221);position: relative;
           font-size: larger;padding: 20px; width:fit-content;        }
-button{
+button{cursor: pointer;
   font-size: medium;}
-  option, input{font-size: medium;}
+  button:hover{background-color: grey;color:white}
+  button:active{transform: translateY(4px);}
+  input{font-size: medium;}
 
 #tblBTN{position: relative;left:30%;}
   </style>
@@ -52,7 +60,7 @@ button{
     <option value="HOME">HOME</option>
   </select>
   <br><br>
-  <label>CNIC:</label>
+  <label>ID No:</label>
   <input type="number" id="CnicInp">
   <br><br>
   <button mgn id="AddBtn">ADD</button>
@@ -164,9 +172,9 @@ button{
     }
 
     //AddBtn.addEventListener("click", AddData);
-    RetBtn.addEventListener("click", RetData);
-    UpBtn.addEventListener("click", UpdateData);
-    DelBtn.addEventListener("click", DeleteData);
+   //RetBtn.addEventListener("click", RetData);
+   //UpBtn.addEventListener("click", UpdateData);
+  //DelBtn.addEventListener("click", DeleteData);
     //
     tblBTN.onclick=()=>{
       var passcode = prompt("Enter passcode to access this page:");
@@ -181,6 +189,25 @@ button{
       AddBtn.onclick=()=>{
         if(!FnameInp.value){alert("Employee not found,Recheck your ID#");return;}
         else{AddData();}
+      }
+      //
+      RetBtn.onclick=()=>{
+        if(!FnameInp.value){alert("Employee not found,Recheck your ID#");return;}
+        else{RetData();}
+      }
+        //
+        UpBtn.onclick=()=>{
+        if(!FnameInp.value){alert("Employee not found,Recheck your ID#");return;}
+        else{UpdateData();}
+      }
+      //
+        DelBtn.onclick=()=>{
+          let delPascode=prompt("Enter Admin Passcode to Delete Employee Data")
+          if(delPascode!=="0015"){alert("incorrect Admin Passcode !!");return;}else{
+                if(!FnameInp.value){alert("Employee not found,Recheck your ID#");return;}
+        else{DeleteData();}
+          }
+        
       }
 
 
