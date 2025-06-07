@@ -6,21 +6,39 @@
   <title>simpleEmployeeDatabase</title>
 </head>
 <body>
-  <h2>Welcome - Employee Form</h2>
+  <style>
+    h2{margin-top: 0%;}
+    img{width:50px;height:50px; border-radius: 50%; text-align: center;margin-bottom: 0%; }
+#outConta{margin:0 auto ;background-color: rgb(27, 221, 221);
+          font-size: larger;width:fit-content;padding: 20px;         }
+button{
+  font-size: medium;}
+  option, input{font-size: medium;}
+
+#tblBTN{position: relative;left:30%;}
+  </style>
+
+  <div id="outConta">
+    <img src="dcscLogo.png" alt="DCSClogo">
+  <h2>DCSC-Current Location</h2>
   <button id="LogoutBtn">Logout</button>
   <br><br>
-  <label>Full Name</label>
-  <input type="text" id="FnameInp">
+  <label>Full Name:</label>
+  <input type="text" id="FnameInp" readonly>
   <br><br>
-  <label>Department</label>
+  <label>Department:</label>
   <select id="LnameInp">
-    <option value="development">Development</option>
-    <option value="testing">Testing</option>
-    <option value="management">Management</option>
-    <option value="administration">Administration</option>
+    <option value="Casual Dept">Casual Dept</option>
+    <option value="Finance">Finance</option>
+    <option value="Purchasing">Purchasing</option>
+    <option value="Management">Management</option>
+    <option value="Administration">Administration</option>
+    <option value="Chandelling">Chandelling</option>
+
+ 
   </select>
   <br><br>
-  <label>Current Location</label>
+  <label>Current Location:</label>
   <select id="DeptInp">
     <option value="DCSC OFFICE">DCSC OFFICE</option>
     <option value="DCG OFFICE">DCG OFFICE</option>
@@ -31,7 +49,7 @@
     <option value="HOME">HOME</option>
   </select>
   <br><br>
-  <label>CNIC</label>
+  <label>CNIC:</label>
   <input type="number" id="CnicInp">
   <br><br>
   <button id="AddBtn">ADD</button>
@@ -39,7 +57,7 @@
   <button id="UpBtn">UPDATE</button>
   <button id="DelBtn">DELETE</button> <br> <br>
     <button id="tblBTN">seeOutputTable</button>
-
+</div>
   <script type="module">
     import { auth, db } from './firebase-config.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
@@ -66,7 +84,29 @@
     let RetBtn = document.getElementById("RetBtn");
     let UpBtn = document.getElementById("UpBtn");
     let DelBtn = document.getElementById("DelBtn");
+    ////
 
+    const idToNameMap = {
+      "200108": "Asha Mjange",
+      "200109": "Salma Mzee",
+      "200110": "Lilian Ngowi",
+      "200111": "Leila Jawadu",
+      "200112": "Mariam Senn",
+      "200113": "Nestory Mahunja",
+      "200114": "Frank Martin",
+      "200115": "Mohamed Kambasila",
+      "200116": "Abubakar Mbaya"
+    };
+
+    CnicInp.addEventListener("input", () => {
+      const enteredId = CnicInp.value.trim();
+      if (enteredId in idToNameMap) {
+        FnameInp.value = idToNameMap[enteredId];
+      } else {
+        FnameInp.value = ""; // You could change this to: "Not found"
+      }
+    });
+////
     function AddData() {
       set(ref(db, "EmployeeSet/" + CnicInp.value), {
         cnic: Number(CnicInp.value),
@@ -134,6 +174,12 @@
      // window.location.href="login.html";
       }else{window.location.href="outputTable.html";}
     }
+    ////
+
+
+
+
+
   </script>
 </body>
 </html>
