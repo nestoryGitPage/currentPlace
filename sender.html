@@ -7,10 +7,13 @@
 </head>
 <body>
   <style>
+    [mgn]{margin-right: 5px;}
     h2{margin-top: 0%;}
-    img{width:50px;height:50px; border-radius: 50%; text-align: center;margin-bottom: 0%; }
+    #relodImg{width: 50PX; height: 50PX;position: absolute;left: 19em;top: 1em;}
+    #relodImg:active{transform: rotate(35deg) scale(1.2);}
+    #img1{width:50px;height:50px; border-radius: 50%; text-align: center;margin-bottom: 0%; }
 #outConta{margin:0 auto ;background-color: rgb(27, 221, 221);
-          font-size: larger;width:fit-content;padding: 20px;         }
+          font-size: larger;padding: 20px; width:fit-content;        }
 button{
   font-size: medium;}
   option, input{font-size: medium;}
@@ -19,9 +22,9 @@ button{
   </style>
 
   <div id="outConta">
-    <img src="dcscLogo.png" alt="DCSClogo">
+    <img id="img1" src="dcscLogo.png" alt="DCSClogo">
   <h2>DCSC-Current Location</h2>
-  <button id="LogoutBtn">Logout</button>
+  <button id="LogoutBtn">Logout</button> <img onclick="location.reload()" id="relodImg" src="reload.png" alt="relodicn">
   <br><br>
   <label>Full Name:</label>
   <input type="text" id="FnameInp" readonly>
@@ -52,9 +55,9 @@ button{
   <label>CNIC:</label>
   <input type="number" id="CnicInp">
   <br><br>
-  <button id="AddBtn">ADD</button>
-  <button id="RetBtn">RETRIEVE</button>
-  <button id="UpBtn">UPDATE</button>
+  <button mgn id="AddBtn">ADD</button>
+  <button mgn id="RetBtn">RETRIEVE</button>
+  <button mgn id="UpBtn">UPDATE</button>
   <button id="DelBtn">DELETE</button> <br> <br>
     <button id="tblBTN">seeOutputTable</button>
 </div>
@@ -160,7 +163,7 @@ button{
       });
     }
 
-    AddBtn.addEventListener("click", AddData);
+    //AddBtn.addEventListener("click", AddData);
     RetBtn.addEventListener("click", RetData);
     UpBtn.addEventListener("click", UpdateData);
     DelBtn.addEventListener("click", DeleteData);
@@ -175,7 +178,10 @@ button{
       }else{window.location.href="outputTable.html";}
     }
     ////
-
+      AddBtn.onclick=()=>{
+        if(!FnameInp.value){alert("Employee not found,Recheck your ID#");return;}
+        else{AddData();}
+      }
 
 
 
