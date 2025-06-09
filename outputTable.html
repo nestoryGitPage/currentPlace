@@ -8,12 +8,20 @@
 </head>
 <body>
   <style>
+    #relodImg{cursor: pointer; width: 30PX; height: 30PX; margin-left: 9px;}
+    #relodImg:hover{transform:scale(1.1)} 
+    #relodImg:active{transform: rotate(35deg) scale(1.2);}
     [goback]{width:50px;height: 50px;}
  [goback]:hover{transform: scale(1.1);}
 </style>
 
   <div style="width: fit-content;margin: 0 auto;" class="responsive mt-3">
-    <h3 class="mb-3">DCSC Employee Current Location <a href="sender.html" style="margin-left: 1px;"> <img goback src="housepng.png"> </a>   </h3> 
+    <h3 class="mb-3">DCSC Employee Location 
+      <a href="sender.html" style="margin-left: 1px;"> <img goback src="housepng.png"></a>
+      <img onclick="location.reload()" id="relodImg" src="reload.png" alt="relodicn"> 
+      
+
+    </h3> 
 
     <table class="table table-striped table-bordered align-middle border-primary">
       <thead class="table-dark">
