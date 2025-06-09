@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+</head>
+<body>
+  <style>
+[signUpimg]{width:100px;height: 30px; cursor: pointer;}
+[signUpimg]:hover{transform: scale(1.1);}
+
+button:hover{background-color: grey;color:white}
+  button:active{transform: translateY(4px);}
+  button{cursor: pointer;font-size: medium;}
+  </style>
+
+  <h2>Login</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button id="loginBtn">Login</button> <br> <br> <br> <br>
+  <div style="position: relative;">Don't have an account? <a style="position:absolute;bottom:44 px;margin-left: 8px;" href="register.html"> <img signUpimg src="imgs/signUp.png" alt="signUpimg"> </a></div>
+
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "sender.html";
+      }
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Login successful");
+          window.location.href = "sender.html";
+        })
+        .catch((error) => alert(error.message));
+    });
+  </script>
+</body>
+</html>
